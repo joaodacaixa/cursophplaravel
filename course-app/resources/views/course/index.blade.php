@@ -1,9 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-
-    <h1>Courses</h1>
-
+    <div class="p-4">
+    <h1>Cursos</h1>
+    </div>
+    <div class="container mt-4">
     <table cellpadding="8" cellspacing="0">
         <thead>
             <tr>
@@ -22,22 +23,27 @@
                     <td>{{ $course->courseHead }}</td>
                    <!--{{ $course->id }}-->
                     <td>
-                        <a href="{{route('course.edit', $course->id)}}"> Edit</a>
-                        <a href="{{route('course.showdelete', $course->id)}}"> Delete</a>
-                        <a href="{{route('course.show', $course->id)}}"> View</a>
-                        
+                        <form method="post" action="{{route ('course.destroy', $course->id) }}" >
+                            <a href="{{route('course.show', $course->id)}}" class="btn btn-primary mt-3"> Detalhes</a>
+                            <a href="{{route('course.edit', $course->id)}}" class="btn btn-primary mt-3"> Editar</a>
+                            <a href="{{route('course.showdelete', $course->id)}}" class="btn btn-primary mt-3"> Deletar op1</a>
+                            @csrf
+                            @method('delete')
+                            <button type="submit" class="btn btn-primary mt-3"> Deletar op2 </button>
+                        </form>
                     </td>
-
                 </tr>
             @endforeach
         </tbody>
     </table>
+    
     <br>
     <br>
     <br>
     <br>
-    <button type="button" onclick="{{ route('course.create') }}" class="btn btn-secondary">
-        Cadastrar
-    </button>
+    <a href="{{ route('course.create') }}" class="btn btn-primary mt-3">
+         Cadastrar
+    </a>
+    </div>
 
 @endsection

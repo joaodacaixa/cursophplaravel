@@ -1,9 +1,10 @@
 @extends ('layouts.app')
 
 @section('content')
-
-<h1> Visualizar Curso </h1>
-
+<div class="p-4">
+<h1> Detalhes do Curso </h1>
+</div>
+<div class="container mt-4">
 <form method="get" action ="{{ route ('course.show', $course->id) }}">
     @csrf
     <div>
@@ -21,9 +22,10 @@
     <br>
     <br>
     
-   <button type="button" onclick="history.back()" class="btn btn-secondary">
+   <button type="button" onclick="history.back()" class="btn btn-secondary mt-3">
         Voltar
     </button>
 
 </form>
+</div>
 @endsection

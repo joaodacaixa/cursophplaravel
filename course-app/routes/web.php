@@ -15,5 +15,6 @@ Route::get('/course/{course}/show', [courseController::class, 'show'])->name('co
 
 //tela que exibe os dados a serem deletados
 Route::get('/course/{course}/showdelete', [courseController::class, 'showdelete'])->name('course.showdelete');
+
 //ao clicar no botao do form "post" faz o delete e retorna a tela inicial.
 Route::delete('/course/{course}', [courseController::class, 'destroy'])->name('course.destroy');

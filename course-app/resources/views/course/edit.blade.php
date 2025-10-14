@@ -1,8 +1,10 @@
 @extends ('layouts.app')
 
 @section('content')
-
+<div class="p-4">
 <h1> Alterar Curso </h1>
+</div>
+<div class="container mt-4">
 <form method="post" action="{{ route('course.update', $course->id) }}">
 
     @csrf
@@ -20,10 +22,11 @@
         <input type='text' name='courseHead' value='{{$course->courseHead}}' required/>
     </div>
 
-    <button type='submmit' class='btn-btn-primary'>Editar Curso</button>
-    <button type="button" onclick="history.back()" class="btn btn-secondary">
+    <button type='submmit' class='btn btn-primary mt-3'>Editar Curso</button>
+    <button type="button" onclick="history.back()" class="btn btn-secondary mt-3">
         Voltar
     </button>
 
 </form>
+</div>
 @endsection
