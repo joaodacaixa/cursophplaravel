@@ -5,6 +5,10 @@ on:
     branches:
       - main
   workflow_dispatch:
+  
+permissions:
+  id-token: write
+  contents: read
 
 jobs:
   build:
@@ -53,3 +57,4 @@ jobs:
           app-name: 'aplicativolaravelphp'
           slot-name: 'Production'
           package: .
+
