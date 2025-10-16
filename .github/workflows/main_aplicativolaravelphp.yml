@@ -61,4 +61,5 @@ jobs:
         with:
           app-name: 'aplicativolaravelphp'
           slot-name: 'Production'
-          package: ./course-app
+          package: .
+
