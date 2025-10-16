@@ -26,7 +26,7 @@ jobs:
           coverage: none
 
       - name:  Install Composer dependencies
-        working-directory: ./course-app
+        working-directory: ./
         run: |
           composer install --no-dev --optimize-autoloader
           php artisan config:cache
@@ -37,7 +37,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: laravel-app
-          path: ./course-app
+          path: ./
 
   deploy:
     runs-on: ubuntu-latest
@@ -62,4 +62,5 @@ jobs:
           app-name: 'aplicativolaravelphp'
           slot-name: 'Production'
           package: .
+
 
