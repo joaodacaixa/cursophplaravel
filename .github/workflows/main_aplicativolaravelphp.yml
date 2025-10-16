@@ -1,0 +1,65 @@
+name: Deploy Laravel App to Azure Web App - aplicativolaravelphp
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name:  Checkout code
+        uses: actions/checkout@v4
+
+      - name:  Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: mbstring, bcmath, intl, mysql, pdo, tokenizer, xml, ctype, fileinfo
+          coverage: none
+
+      - name:  Install Composer dependencies
+        working-directory: ./course-app
+        run: |
+          composer install --no-dev --optimize-autoloader
+          php artisan config:cache
+          php artisan route:cache
+          php artisan view:cache
+
+      - name:  Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: laravel-app
+          path: ./course-app
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name:  Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: laravel-app
+
+      - name:  Login to Azure
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_622BEBF209154DD19E697D31EFB3AD63 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_8EC306754391486FB3FF8FF2F6ECCA1A }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_6DE3D6F1DF01482CB977B501C220C41D }}
+
+      - name:  Deploy to Azure Web App
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: 'aplicativolaravelphp'
+          slot-name: 'Production'
+          package: .
+
